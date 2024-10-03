@@ -8,11 +8,10 @@ on:
 
 env:
   REMOTE_REPOSITORY: qosmio/openwrt-ipq
-  REMOTE_BRANCH: qualcommax-6.x-nss-wifi
+  REMOTE_BRANCH: qualcommax-6.x-nss-ath11k-2.12
   CONFIG_FILE: ax3600.config
-  NSS_STATUS_PATCH: 999-add-nss-load-to-status.patch
   CUSTOM_FILES_PATH: files/
-  RELEASE_PREFIX: Qualcommax-6.x-nss-wifi
+  RELEASE_PREFIX: qualcommax-6.x-nss-ath11k-2.12
   NSS_PACKAGES_REPOSITORY: qosmio/nss-packages
   NSS_PACKAGES_REPOSITORY_BRANCH: NSS-12.5-K6.x
 
@@ -70,28 +69,25 @@ jobs:
         run: |
           ./scripts/feeds update -a
           ./scripts/feeds install -a
-      - name: Apply NSS Status patch
-        run: |
-          mv custom_repo/patches/${{ env.NSS_STATUS_PATCH }} feeds/luci/${{ env.NSS_STATUS_PATCH }}
-          cd feeds/luci
-          git apply ${{ env.NSS_STATUS_PATCH }}
       - name: Configure firmware image
         run: |
           mv custom_repo/${{ env.CONFIG_FILE }} .config
           make defconfig -j$(nproc)
+      - name: Append CONFIG_RELR=y to target/linux/qualcommax/config-6.6
+        run: echo "CONFIG_RELR=y" >> target/linux/qualcommax/config-6.6
       - name: Include custom files
         run: |
           mkdir -p ${{ env.CUSTOM_FILES_PATH }}
           mv custom_repo/${{ env.CUSTOM_FILES_PATH }}* ${{ env.CUSTOM_FILES_PATH }}
+      - name: Download dependencies
+        run: make download V=s -j$(nproc)
       - name: Build the firmware image
-        run: make download world V=sc -j$(nproc)
-      - name: Package output
-        run: tar -cvf ipq807xx-images.tar bin/targets/qualcommax/ipq807x
+        run: make world V=sc -j$(nproc)
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
         with:
           name: ipq807x-images
-          path: ipq807xx-images.tar
+          path: bin/targets/qualcommax/ipq807x
 
   release:
     name: Create release
@@ -103,14 +99,15 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: ipq807x-images
-      - name: Extract artifacts
-        run: tar xf ipq807xx-images.tar
+          path: firmware
+      - name: Display structure of downloaded files
+        run: ls -R
       - name: Get current date
         run: echo "RELEASE_DATE=$(date +%F)" >> $GITHUB_ENV
       - name: Create release
         uses: softprops/action-gh-release@master
         with:
-          files: bin/targets/qualcommax/ipq807x/*
+          files: firmware/*
           tag_name: ${{ env.RELEASE_PREFIX }}-${{ env.RELEASE_DATE }}
           name: Updated prebuilt images ${{ env.RELEASE_DATE }}
           body: |

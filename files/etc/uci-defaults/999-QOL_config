@@ -1,6 +1,8 @@
 uci -q batch << EOI
 # Set memory profile to auto
-set pbuf.opt.memory_profile='auto'
+set pbuf.opt.auto_scale='on'
+set pbuf.opt.memory_profile='1gb' #'auto'
+set pbuf.opt.scaling_governor='performance'
 
 # Wireless default settings
 set wireless.default_radio0.dtim_period='1'
@@ -47,7 +49,7 @@ set network.@device[0].multicast_querier='1'
 set ecm.@general[0].enable_bridge_filtering='0'
 
 # uHTTPd settings
-set uhttpd.main.redirect_https='1'
+#set uhttpd.main.redirect_https='1'
 
 # BanIP settings
 set banip.global.ban_cores='1'
@@ -56,4 +58,5 @@ set banip.global.ban_splitsize='1024'
 set banip.global.ban_blockinput='cinsscore' 'debl' 'turris'
 set banip.global.ban_blockforwardwan='cinsscore' 'debl' 'turris'
 set banip.global.ban_blockforwardlan='doh'
+set banip.global.ban_countries='BY','CD','CF','CU','ET','HK','IQ','IR','KP','LB','LY','MM','RU','SD','SY','VE','YE','ZW'
 EOI
