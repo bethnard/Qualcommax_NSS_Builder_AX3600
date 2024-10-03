@@ -1,4 +1,3 @@
-@ -0,0 +1,128 @@
 name: Build OpenWrt for specific target and release
 
 on:
