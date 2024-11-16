@@ -5,6 +5,9 @@ set pbuf.opt.memory_profile='auto'
 set pbuf.opt.scaling_governor='performance'
 
 # Wireless default settings for radio0
+set wireless.default_radio0.dtim_period='2'
+set wireless.default_radio0.max_inactivity='86400'
+set wireless.default_radio0.disassoc_low_ack='1'
 set wireless.default_radio0.wnm_sleep_mode='1'
 set wireless.default_radio0.ieee80211k='1'
 set wireless.default_radio0.time_advertisement='2'
@@ -12,11 +15,14 @@ set wireless.default_radio0.bss_transition='1'
 set wireless.default_radio0.proxy_arp='1'
 
 # Wireless radio0 specific settings
-set wireless.radio0.htmode='HE160'
+set wireless.radio0.htmode='HE20'
 set wireless.radio0.channel='auto'
 set wireless.radio0.country='DE'
 
 # Wireless default settings for radio1
+set wireless.default_radio1.dtim_period='2'
+set wireless.default_radio1.max_inactivity='86400'
+set wireless.default_radio1.disassoc_low_ack='1'
 set wireless.default_radio1.wnm_sleep_mode='1'
 set wireless.default_radio1.ieee80211k='1'
 set wireless.default_radio1.time_advertisement='2'
@@ -24,9 +30,24 @@ set wireless.default_radio1.bss_transition='1'
 set wireless.default_radio1.proxy_arp='1'
 
 # Wireless radio1 specific settings
-set wireless.radio1.htmode='HE20'
+set wireless.radio1.htmode='HE160'
 set wireless.radio1.channel='auto'
 set wireless.radio1.country='DE'
+
+# Wireless default settings for radio2
+set wireless.default_radio2.dtim_period='2'
+set wireless.default_radio2.max_inactivity='86400'
+set wireless.default_radio2.disassoc_low_ack='1'
+set wireless.default_radio2.wnm_sleep_mode='1'
+set wireless.default_radio2.ieee80211k='1'
+set wireless.default_radio2.time_advertisement='2'
+set wireless.default_radio2.bss_transition='1'
+set wireless.default_radio2.proxy_arp='1'
+
+# Wireless radio2 specific settings
+set wireless.radio2.htmode='HE20'
+set wireless.radio2.channel='auto'
+set wireless.radio2.country='DE'
 
 # Firewall settings
 set firewall.@zone[1].input='DROP'
