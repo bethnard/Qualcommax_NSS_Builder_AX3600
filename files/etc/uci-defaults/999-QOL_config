@@ -1,8 +1,4 @@
 uci -q batch << EOI
-# Set memory profile to auto
-set pbuf.opt.auto_scale='on'
-set pbuf.opt.memory_profile='auto'
-set pbuf.opt.scaling_governor='performance'
 
 # Wireless default settings for radio0
 set wireless.default_radio0.dtim_period='2'
