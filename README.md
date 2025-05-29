@@ -12,6 +12,19 @@ This project automates the process of building OpenWrt firmware images for the Q
 - Full NSS (Network Subsystem) support 
 - Quality-of-life enhancements through UCI configuration
 
+## Fork 
+
+- Adblock-Fast
+- DDNS (FreeDNS)
+- HTTPS-DNS-Proxy
+- MWAN3 (WAN Load Balance) + all necessary IPTable adjustments
+- Nano
+- TTYD
+- Watchcat
+- Wake-on-LAN
+- Wireguard
+- And more
+
 ## Build Process
 
 The build process is automated using GitHub Actions and consists of the following steps:
@@ -37,7 +50,6 @@ Additionally, the `uci` commands in the "Quality-of-Life Enhancements" section a
 
 To enhance the security of SSH connections, the project includes a hardened SSH configuration. The configuration is derived from recommendations by [SSH-Audit](https://github.com/jtesta/ssh-audit) and the [BSI](https://www.bsi.bund.de/), it specifies strong key exchange algorithms, ciphers, message authentication codes (MACs), host key algorithms, and public key algorithms. This ensures that only secure and up-to-date algorithms are used for SSH communication.
 
-
 ## Contributing
 
 Contributions to this project are welcome. If you encounter any issues or have suggestions for improvements, please open an issue or submit a pull request on the GitHub repository.
@@ -48,4 +60,5 @@ Contributions to this project are welcome. If you encounter any issues or have s
 - The Qualcomm IPQ807x platform and the Xiaomi AX3600 router for the hardware support.
 - The community over at the [OpenWrt forum](https://forum.openwrt.org/t/ipq807x-nss-build/148529) for their valuable contributions and resources. 
 - [rodriguezst](https://github.com/rodriguezst) for his [ipq807x-openwrt-builder](https://github.com/rodriguezst/ipq807x-openwrt-builder)
-- And a special thanks to [qosmio](https://github.com/qosmio) for the main NSS development
+- A special thanks to [qosmio](https://github.com/qosmio) for the main NSS development
+- And [JuliusBairaktaris](https://github.com/JuliusBairaktaris) for his amazing project / repo!
