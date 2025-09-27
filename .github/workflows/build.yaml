@@ -90,7 +90,7 @@ jobs:
           make -j$(nproc) || make -j1 V=s  # Retry single-threaded on failure
 
       - name: Upload artifacts
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v4
         with:
           name: ipq807x-images
           path: bin/targets/qualcommax/ipq807x
