@@ -27,24 +27,40 @@ This project automates the process of building OpenWrt firmware images for the Q
 
 ## Build Process
 
-The build process is automated using GitHub Actions and consists of the following steps:
+The automated build process is broken! Build is done through own compilation:
 
-1. Check for new commits in the [remote repository](https://github.com/qosmio/openwrt-ipq)
-2. Install the necessary dependencies
-3. Checkout the [remote repository](https://github.com/qosmio/openwrt-ipq) and the current repository
-4. Update and install the OpenWrt feeds
-5. Apply the [NSS status patch](patches/999-add-nss-load-to-status.patch) by [qosmio](https://github.com/qosmio)
-6. Configure the firmware image using the provided configuration file
-7. Include SSH hardening configuration and QOL-Enhancements
-8. Build the firmware image
-9. Package the output and upload the artifacts
-10. Create a new release with the updated prebuilt images
+1. Clone this and qosmio's NSS repository:
+   ```bash
+   git clone https://github.com/bethnard/Qualcommax_NSS_Builder_AX3600 -b main --single-branch
+   git clone https://github.com/qosmio/openwrt-ipq -b main-nss --single-branch
+   cd openwrt-ipq
+   ```
+2. Update feeds:
+   ```bash
+   ./scripts/feeds update
+   ./scripts/feeds install -a
+   ```
+3. Copy AX3600.config file
+   ```bash
+   cd ..
+   cp Qualcommax_NSS_Builder_AX3600/ax3600.config openwrt-ipq/.config
+   cp -r Qualcommax_NSS_Builder_AX3600/files/ openwrt-ipq/
+   cd openwrt-ipq
+   ```
+4. Generate the full config
+   ```bash
+   make defconfig V=s
+   ```
+5. Now run full build
+   ```bash
+   make download -j$(nproc) V=s
+   make -j$(nproc) V=s
 
 ## Configuration
 
 The project utilizes a custom configuration file [`ax3600.config`](ax3600.config) to specify the desired settings for the firmware build. This file includes various options such as target platform, compiler optimizations, package selections, and more.
 
-Additionally, the `uci` commands in the "Quality-of-Life Enhancements" section are used to fine-tune the wireless and network settings for improved performance and functionality. Refer to the [999-QOL_config](https://github.com/JuliusBairaktaris/Qualcommax_NSS_Builder/blob/main/files/etc/uci-defaults/999-QOL_config) for the specific configuration. 
+Additionally, the `uci` commands in the "Quality-of-Life Enhancements" section are used to fine-tune the wireless and network settings for improved performance and functionality. Refer to the [999-QOL_config](https://github.com/bethnard/Qualcommax_NSS_Builder/tree/main/files/etc/uci-defaults/999-QOL_config) for the specific configuration. 
 
 ## SSH Hardening
 
