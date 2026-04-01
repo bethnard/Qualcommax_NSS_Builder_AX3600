@@ -82,4 +82,8 @@ add_list banip.global.ban_country='ve'
 add_list banip.global.ban_country='ye'
 add_list banip.global.ban_country='zw'
 
+# OpenSSL OQS provider
+set openssl.oqsprovider=provider
+set openssl.oqsprovider.enabled='1'
+
 EOI
