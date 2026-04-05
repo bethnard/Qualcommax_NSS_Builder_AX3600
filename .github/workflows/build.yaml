@@ -207,7 +207,7 @@ jobs:
           {
             echo "## OpenWrt Automated Build"
             echo "- **Date**: $date"
-            echo "- **Main Commit**: \`${{ needs.check_updates.outputs.main_sha }}\`"
+            echo "- **25.12 Commit**: \`${{ needs.check_updates.outputs.main_sha }}\`"
             echo "- **NSS Commit**: \`${{ needs.check_updates.outputs.nss_sha }}\`"
             echo "- **Trigger**: \`${{ github.event_name }}\`"
           } > release_notes.md
