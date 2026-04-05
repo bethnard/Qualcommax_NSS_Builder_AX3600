@@ -215,7 +215,7 @@ jobs:
           mapfile -t assets < <(find openwrt/bin/targets/qualcommax/ipq807x/ -type f -not -path "*/packages/*")
           gh release create "$tag_name" \
             --repo "$GITHUB_REPOSITORY" \
-            --title "OpenWrt Build $date" \
+            --title "OpenWrt 25.12 Build $date" \
             --notes-file release_notes.md \
             "${assets[@]}"
 
