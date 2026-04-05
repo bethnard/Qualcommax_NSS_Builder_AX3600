@@ -27,7 +27,7 @@ env:
   # Release Configuration
   RELEASE_PREFIX: main-nss
   ARTIFACT_RETENTION_DAYS: 7
-  RELEASES_TO_KEEP: 2
+  RELEASES_TO_KEEP: 6
 
 jobs:
   check_updates:
