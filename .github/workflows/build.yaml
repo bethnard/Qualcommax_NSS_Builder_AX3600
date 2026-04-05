@@ -207,7 +207,7 @@ jobs:
           {
             echo "## OpenWrt Automated Build"
             echo "- **Date**: $date"
-            echo "- **Main Commit**: \`${{ needs.check_updates.outputs.main_sha }}\`"
+            echo "- **Main (Snapshot) Commit**: \`${{ needs.check_updates.outputs.main_sha }}\`"
             echo "- **NSS Commit**: \`${{ needs.check_updates.outputs.nss_sha }}\`"
             echo "- **Trigger**: \`${{ github.event_name }}\`"
           } > release_notes.md
@@ -215,7 +215,7 @@ jobs:
           mapfile -t assets < <(find openwrt/bin/targets/qualcommax/ipq807x/ -type f -not -path "*/packages/*")
           gh release create "$tag_name" \
             --repo "$GITHUB_REPOSITORY" \
-            --title "OpenWrt Build $date" \
+            --title "OpenWrt Snapshot Build $date" \
             --notes-file release_notes.md \
             "${assets[@]}"
 
